@@ -7,14 +7,16 @@ import {
 import { UserServiceService } from './user-service.service';
 
 import { User } from './Modal/user.modal';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 
 describe('UserServiceService', () => {
   let service: UserServiceService;
   let httpMock: HttpTestingController;
+  let id:string;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule,HttpClientModule],
       providers: [UserServiceService],
     });
 
@@ -22,9 +24,9 @@ describe('UserServiceService', () => {
     httpMock = TestBed.get(HttpTestingController);
   });
 
-  afterEach(() => {
-    httpMock.verify();
-  });
+  // afterEach(() => {
+  //   httpMock.verify();
+  // });
 
   it('should retrieve posts from the API via GET', () => {
     const dummyPosts: User[] = [
@@ -43,4 +45,11 @@ describe('UserServiceService', () => {
 
     request.flush(dummyPosts);
   });
+  it('should get the data successful with id', () => {
+    const userId: User = 
+      { Id: '5b4ced32c554be2831df8549', Name: "hagay", Age: 23 };
+    service.getPostsById('5b4ced32c554be2831df8549').subscribe((data: any) => {
+      expect(data).toBe(userId);
+    });
+  })
 });

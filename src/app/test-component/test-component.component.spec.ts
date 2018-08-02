@@ -25,7 +25,7 @@ describe('AppComponent', () => {
       const user: User =  { Id: '123', Name: "hagay", Age: 23 };
       comp.user = user;
     
-      comp.selected.subscribe(selectedHero => expect(selectedHero).toBe(user));
+      comp.selected.subscribe(selectedUser => expect(selectedUser).toBe(user));
       comp.clickOutput();
     });
   });
